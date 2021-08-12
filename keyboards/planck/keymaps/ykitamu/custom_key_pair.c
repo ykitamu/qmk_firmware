@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "custom_key_pair.h"
 #include "keymap_jp.h"
-#include "print.h"
 
 enum index_code {
   CUSTOM,
@@ -64,15 +63,6 @@ bool custom_key_pair(uint16_t keycode, keyrecord_t *record) {
 
   int index = pair_index(keycode);
   if (index != -1) {
-    printf("keycode: %02x\n",          keycode);
-    printf("pressed: %02x\n",          record->event.pressed);
-    printf("get_mods: %02x\n",         get_mods());
-    printf("get_weak_mods: %02x\n",    get_weak_mods());
-    printf("get_oneshot_mods: %02x\n", get_oneshot_mods());
-    printf("report->mods: %02x\n",     keyboard_report->mods);
-    printf("mod_bit: %02x\n",          MOD_BIT(KC_LSFT));
-    printf("mod_mask: %02x\n",         MOD_MASK_SHIFT);
-    
     if (record->event.pressed) {
       uint8_t shift_bits = stash_shift & MOD_MASK_SHIFT;
       origin_code = keypair[index][CUSTOM];
